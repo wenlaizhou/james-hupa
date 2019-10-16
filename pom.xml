@@ -41,6 +41,7 @@
         <module>client</module>
         <module>hupa</module>
     </modules>
+
     <scm>
         <connection>scm:svn:http://svn.apache.org/repos/asf/james/hupa/trunk</connection>
         <developerConnection>scm:svn:https://svn.apache.org/repos/asf/james/hupa/trunk</developerConnection>
@@ -68,46 +69,46 @@
     </properties>
 
     <profiles>
-      <profile>
-        <!-- Agressive js compression. Compile for all browsers and languages -->
-        <id>prod</id>
-        <properties>
-          <gwt.moduleSuffix>Prod</gwt.moduleSuffix>
-          <gwt.disableClassMetadata>true</gwt.disableClassMetadata>
-          <gwt.disableCastChecking>true</gwt.disableCastChecking>
-          <gwt.logLevel>TRACE</gwt.logLevel>
-          <gwt.compileReport>true</gwt.compileReport>
-        </properties>
-      </profile>
-      <profile>
-        <id>demo</id>
-        <properties>
-          <mock.scope />
-        </properties>
-      </profile>
-      <profile>
-        <id>test</id>
-        <properties>
-          <skipTests>false</skipTests>
-        </properties>
-      </profile>
-      <profile>
-        <id>clos</id>
-        <properties>
-          <gwt.enableClosureCompiler>true</gwt.enableClosureCompiler>
-          <gwt.disableRunAsync>true</gwt.disableRunAsync>
-          <gwt.compileReport>false</gwt.compileReport>
-          <gwt.logLevel>ERROR</gwt.logLevel>
-        </properties>
-      </profile>
-      <profile>
-        <id>pretty</id>
-        <properties>
-          <gwt.style>PRETTY</gwt.style>
-          <mock.scope />
-          <gwt.logLevel>TRACE</gwt.logLevel>
-        </properties>
-      </profile>
+        <profile>
+            <!-- Agressive js compression. Compile for all browsers and languages -->
+            <id>prod</id>
+            <properties>
+                <gwt.moduleSuffix>Prod</gwt.moduleSuffix>
+                <gwt.disableClassMetadata>true</gwt.disableClassMetadata>
+                <gwt.disableCastChecking>true</gwt.disableCastChecking>
+                <gwt.logLevel>TRACE</gwt.logLevel>
+                <gwt.compileReport>true</gwt.compileReport>
+            </properties>
+        </profile>
+        <profile>
+            <id>demo</id>
+            <properties>
+                <mock.scope />
+            </properties>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <skipTests>false</skipTests>
+            </properties>
+        </profile>
+        <profile>
+            <id>clos</id>
+            <properties>
+                <gwt.enableClosureCompiler>true</gwt.enableClosureCompiler>
+                <gwt.disableRunAsync>true</gwt.disableRunAsync>
+                <gwt.compileReport>false</gwt.compileReport>
+                <gwt.logLevel>ERROR</gwt.logLevel>
+            </properties>
+        </profile>
+        <profile>
+            <id>pretty</id>
+            <properties>
+                <gwt.style>PRETTY</gwt.style>
+                <mock.scope />
+                <gwt.logLevel>TRACE</gwt.logLevel>
+            </properties>
+        </profile>
     </profiles>
 
     <dependencyManagement>
@@ -342,13 +343,36 @@
             <url>http://repository.jboss.org/nexus/content/groups/public/</url>
         </repository>
         <repository>
-           <id>sonatype</id>
-           <url>http://oss.sonatype.org/content/repositories/snapshots</url>
-           <snapshots><enabled>true</enabled></snapshots>
-           <releases><enabled>false</enabled></releases>
+            <id>sonatype</id>
+            <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
         </repository>
     </repositories>
     <build>
+        <finalName>${project.artifactId}</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>*/*.*</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
         <pluginManagement>
             <plugins>
                 <plugin>
