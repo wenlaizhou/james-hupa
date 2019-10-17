@@ -18,34 +18,35 @@
  ****************************************************************/
 package org.apache.hupa;
 
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.webapp.WebAppContext;
+
 import java.net.InetSocketAddress;
 import java.net.URL;
 import java.security.ProtectionDomain;
-
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.webapp.WebAppContext;
 
 /**
  * When hupa is packaged with jetty this class is called to
  * start jetty server.
  */
 public final class Launcher {
-   public static void main(String[] args) throws Exception {
 
-      int port = Integer.parseInt(System.getProperty("port", "8282"));
-      String bindAddress = System.getProperty("host", "0.0.0.0");
+    public static void main(String[] args) throws Exception {
 
-      InetSocketAddress a = new InetSocketAddress(bindAddress, port);
-      Server server = new Server(a);
+        int port = Integer.parseInt(System.getProperty("port", "8282"));
+        String bindAddress = System.getProperty("host", "0.0.0.0");
 
-      ProtectionDomain domain = Launcher.class.getProtectionDomain();
-      URL location = domain.getCodeSource().getLocation();
-      WebAppContext webapp = new WebAppContext();
-      webapp.setContextPath("/");
-      webapp.setWar(location.toExternalForm());
+        InetSocketAddress a = new InetSocketAddress(bindAddress, port);
+        Server server = new Server(a);
 
-      server.setHandler(webapp);
-      server.start();
-      server.join();
-   }
+        ProtectionDomain domain = Launcher.class.getProtectionDomain();
+        URL location = domain.getCodeSource().getLocation();
+        WebAppContext webapp = new WebAppContext();
+        webapp.setContextPath("/");
+        webapp.setWar(location.toExternalForm());
+
+        server.setHandler(webapp);
+        server.start();
+        server.join();
+    }
 }
